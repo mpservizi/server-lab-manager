@@ -1,0 +1,9 @@
+{
+  "PORT": 3000,
+  "APP_NAME": "Api server",
+  "DB_NAME": "mydb",
+  "DB_PATH": "storage/database/mydb.accdb",
+  "RELATIVE_PATH": 1,
+  "FAKE": 0,
+  "DB_DEBUG": 0
+}
