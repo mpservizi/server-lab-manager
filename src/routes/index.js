@@ -1,5 +1,6 @@
 import express from 'express';
 const router = express.Router();
+import NormeController from './norme/norme.controller.js';
 
 //Prefisso da mettere prima di caricare i vari routes dei moduli
 const ROUTE_PREFIX = '/api';
@@ -24,7 +25,5 @@ export async function initRouter(app, db) {
 }
 
 function bindRoutes() {
-  router.get('', (req, res) => {
-    res.send('Ciao');
-  });
+  router.use('/norme', NormeController);
 }
