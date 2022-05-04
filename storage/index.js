@@ -2,18 +2,16 @@
  * Impostare qui il database da usare nel app
  */
 
-// const MyDb = require('@models/MyDb');
-import { MyDb } from '@models/MyDb';
-import SqlDb from './sql_db';
+import SqlDb from './sql_db.js';
 
-let database: MyDb;
+let database;
 /**
  * Espone il database da usare nel app
  * @param config
  * @returns
  */
-async function initRepo(config: any) {
-  let result: any = {
+async function initRepo(config) {
+  let result = {
     data: null,
     config: null,
     err: null,
@@ -37,7 +35,7 @@ async function initRepo(config: any) {
 
 export default {
   initRepo,
-  getDb: (): MyDb => {
+  getDb: () => {
     return database;
   },
 };

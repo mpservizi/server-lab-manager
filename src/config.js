@@ -1,5 +1,10 @@
-const fs = require('fs');
+import fs from 'fs';
 import path from 'path';
+
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 /**
  * Definire qui oggetto config da usare in app

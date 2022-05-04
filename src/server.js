@@ -2,24 +2,16 @@ import express from 'express';
 import { join } from 'path';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
-import helmet from 'helmet';
-import { logger } from './logger';
-import { engine } from 'express-handlebars';
-import router from './routes';
-// const favicon = require("serve-favicon");
+import { logger } from './logger.js';
 
-// const router = require("../apps/router");
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 //Inizializza app express
 function initServer() {
   const app = express();
   const PUBLIC_FOLDER = join(__dirname, '..', 'public');
-
-  app.use(
-    helmet({
-      contentSecurityPolicy: false,
-    })
-  );
 
   // app.use(morgan('tiny'));
   app.use(
@@ -58,9 +50,6 @@ function initServer() {
 
   //La cartella assets è raggiungibile con path res nei scripts
   app.use('/', express.static(PUBLIC_FOLDER));
-
-  //abbino i routes dei vari moduli
-  app.use('/api', router);
 
   return app;
 }

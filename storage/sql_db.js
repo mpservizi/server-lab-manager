@@ -1,15 +1,12 @@
-import { MyDb } from '@models/MyDb';
+import { MyDb } from './MyDb.js';
 import { existsSync } from 'fs';
-import { DbPayload_I, DbRisposta_I } from '@models/interfacce/db_dto';
-
-import { open as DbCnn } from 'node-adodb';
-import { logger } from '@src/logger';
-const ADODB = require('node-adodb');
-
+import { logger } from './../src/logger.js';
+// const ADODB = require('node-adodb');
+import ADODB from 'node-adodb';
 class SqlDb extends MyDb {
-  private _cnn: DbCnn | undefined;
-  constructor(dbConfig: any) {
+  constructor(dbConfig) {
     super(dbConfig);
+    this._cnn = undefined;
   }
 
   async initDb() {
@@ -29,8 +26,8 @@ class SqlDb extends MyDb {
    * @param {Object} payload
    * @returns
    */
-  async query(payload: DbPayload_I) {
-    let result: DbRisposta_I = {
+  async query(payload) {
+    let result = {
       data: undefined,
       err: undefined,
     };
@@ -38,9 +35,9 @@ class SqlDb extends MyDb {
       if (this._config.debug) {
         logger.info('Db query : ' + payload.sql);
       }
-      let dati = await this._cnn!.query(payload.sql);
+      let dati = await this._cnn.query(payload.sql);
       result.data = dati;
-    } catch (error: any) {
+    } catch (error) {
       result.err = {
         msg: 'Errore esecuzione select query',
         payload: payload,
@@ -54,8 +51,8 @@ class SqlDb extends MyDb {
    * @param {Object} payload
    * @returns
    */
-  async execute(payload: DbPayload_I) {
-    let result: DbRisposta_I = {
+  async execute(payload) {
+    let result = {
       data: undefined,
       err: undefined,
     };
@@ -64,9 +61,9 @@ class SqlDb extends MyDb {
         logger.info('Db execute : ' + payload.sql);
         logger.info('scalar : ' + payload.scalar);
       }
-      let dati = await this._cnn!.execute(payload.sql, payload.scalar);
+      let dati = await this._cnn.execute(payload.sql, payload.scalar);
       result.data = dati;
-    } catch (error: any) {
+    } catch (error) {
       result.err = {
         msg: 'Errore esecuzione action query',
         payload: payload,
@@ -85,7 +82,7 @@ export default SqlDb;
  * @returns {Object} connessione al database. Null in caso di errore
  */
 
-async function openConnection(dbPath: string) {
+async function openConnection(dbPath) {
   // const provider = "Microsoft.Jet.OLEDB.4.0"; //.mdb
   const provider = 'Microsoft.ACE.OLEDB.12.0'; //.accdb office 2010
 
@@ -120,7 +117,7 @@ async function openConnection(dbPath: string) {
  * @param {String} conStr
  * @returns {Object} driver oppure null
  */
-async function verificaDriver(conStr: string) {
+async function verificaDriver(conStr) {
   //Con alcune verizioni di office funziona 32 bit con altre 64bit
   //Provo entrambe le versioni e verifico se una delle 2 funziona
   let is64Bit = false;
@@ -146,7 +143,7 @@ async function verificaDriver(conStr: string) {
  * @param {Object} cnn :  ADODB connection
  * @returns
  */
-async function checkConnection(cnn: DbCnn) {
+async function checkConnection(cnn) {
   //Provo eseguire una query di selezione su una tabella finta
   const FAKE_TABLE = 'NOMI_XXXXXX';
   let test_sql = `SELECT id from ${FAKE_TABLE}`;
@@ -155,7 +152,7 @@ async function checkConnection(cnn: DbCnn) {
     let dati = await cnn.query(test_sql);
     //Se la tabella esiste e ho estratto i dati
     result = true;
-  } catch (error: any) {
+  } catch (error) {
     //Se il testo d'errore contiene nome della tabella
     //Significa che il driver funziona, errore indica che la tabella non esiste
     if (error.process.message.includes(FAKE_TABLE)) {
