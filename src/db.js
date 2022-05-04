@@ -10,7 +10,7 @@ async function selectQuery(sql) {
     sql: sql,
     scalar: undefined,
   };
-  let response = await eseguiQuery(payload);
+  let response = await eseguiSelectQuery(payload);
   return response;
 }
 async function updateQuery(sql) {
@@ -18,7 +18,7 @@ async function updateQuery(sql) {
     sql: sql,
     scalar: undefined,
   };
-  let response = await eseguiQuery(payload);
+  let response = await eseguiActionQuery(payload);
   return response;
 }
 async function deleteQuery(sql) {
@@ -26,7 +26,7 @@ async function deleteQuery(sql) {
     sql: sql,
     scalar: undefined,
   };
-  let response = await eseguiQuery(payload);
+  let response = await eseguiActionQuery(payload);
   return response;
 }
 async function insertQuery(sql) {
@@ -34,11 +34,17 @@ async function insertQuery(sql) {
     sql: sql,
     scalar: undefined,
   };
-  let response = await eseguiQuery(payload);
+  let response = await eseguiActionQuery(payload);
   return response;
 }
 
-async function eseguiQuery(payload) {
+async function eseguiSelectQuery(payload) {
+  let db = Storage.getDb();
+  let response = await db.query(payload);
+  return response;
+}
+
+async function eseguiActionQuery(payload) {
   let db = Storage.getDb();
   let response = await db.execute(payload);
   return response;
