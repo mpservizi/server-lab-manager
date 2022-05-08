@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "start": "node src/luncher.js",
+    "dev": "nodemon src/luncher.js"
   },
   "dependencies": {
     "body-parser": "^1.19.1",

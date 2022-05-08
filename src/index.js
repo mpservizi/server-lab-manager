@@ -11,7 +11,7 @@ import { initRouter } from './routes/index.js';
  * Entry point per node app, eseguire qui tutta la configurazione globale
  * @returns
  */
-async function startApp() {
+export async function startApp() {
   let result = {
     data: undefined,
     config: undefined,
@@ -78,18 +78,3 @@ async function startApp() {
 
   return result;
 }
-
-/**
- * Bootstap node app
- */
-async function avvio() {
-  let result = await startApp();
-  if (!result.err) {
-    logger.info(result.data);
-  } else {
-    logger.error('Errore inizializzazione applicazione. Err:');
-    logger.error(result.err);
-  }
-}
-
-avvio();
