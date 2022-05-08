@@ -64,7 +64,7 @@ async function startServer(app, port) {
     try {
       app
         .listen(port, () => {
-          result.data = `Server ready on port ${port}`;
+          result.data = `http://localhost:${port}`;
           resolve(result);
         })
         .on('error', (err) => {

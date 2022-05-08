@@ -5,6 +5,7 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const CONFIG_FILE_PATH = path.join(__dirname, '../', 'app_config.json');
 
 /**
  * Definire qui oggetto config da usare in app
@@ -19,7 +20,7 @@ function getConfig() {
     database: {
       host: 'localhost',
       nome: ENV.DB_NAME,
-      path: ENV.DB_PATH,
+      path: setDbPath(ENV),
       fake: parseInt(ENV.FAKE, 10) || 0,
       debug: parseInt(ENV.DB_DEBUG, 10) || 0,
     },
@@ -34,7 +35,6 @@ function getConfig() {
  * @returns
  */
 function leggiConfig() {
-  const CONFIG_FILE_PATH = path.join(__dirname, '../', 'app_config.json');
   let result = undefined;
   try {
     let rawdata = fs.readFileSync(CONFIG_FILE_PATH);
@@ -44,5 +44,16 @@ function leggiConfig() {
     console.log(error);
   }
   return result;
+}
+
+function setDbPath(config) {
+  let percorso = '';
+  if (config.RELATIVE_PATH && config.RELATIVE_PATH == 1) {
+    let root_folder = path.dirname(CONFIG_FILE_PATH);
+    percorso = path.join(root_folder, config.DB_PATH);
+  } else {
+    percorso = config.DB_PATH;
+  }
+  return percorso;
 }
 export default { load: getConfig };
