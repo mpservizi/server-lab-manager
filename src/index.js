@@ -50,14 +50,14 @@ export async function startApp() {
     const app = Server.initServer();
 
     //Carico tutti i routes del app
-    const modResult = await initRouter(app, Repo.getDb());
-    if (modResult.err) {
-      result.err = modResult.err;
-      result.data = 'Errore inizializzazione moduli';
-      return result;
-    }
+    // const modResult = await initRouter(app, Repo.getDb());
+    // if (modResult.err) {
+    //   result.err = modResult.err;
+    //   result.data = 'Errore inizializzazione moduli';
+    //   return result;
+    // }
 
-    logger.debug(modResult.data);
+    // logger.debug(modResult.data);
 
     //Faccio partire il server express
     const response = await Server.startServer(app, config.port);

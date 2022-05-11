@@ -9,7 +9,7 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-import MyWebsocket from './websocket.js';
+import { MyWebsocket } from './websocket.js';
 
 //Inizializza app express
 function initServer() {
