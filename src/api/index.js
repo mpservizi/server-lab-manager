@@ -1,8 +1,10 @@
 import { norme_handlers } from './norme.js';
+import { ping_handlers } from './ping.js';
 import { MyWebsocket } from './../websocket.js';
 
 //Abbino i metodi ai routes
 const API_HANDLER = {
+  ...ping_handlers,
   ...norme_handlers,
 };
 

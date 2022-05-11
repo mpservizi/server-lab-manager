@@ -1,13 +1,13 @@
 import { DbAdapter } from './../db.js';
 
 //Ogni routes corrisonde al canale websocket
-export const routes_Norme = {
+const routes = {
   getAll: 'norme/getAll',
 };
 
 //Abbino gli handler ai routes
 export const norme_handlers = {
-  [routes_Norme.getAll]: listaNorme,
+  [routes.getAll]: listaNorme,
 };
 
 async function listaNorme() {
