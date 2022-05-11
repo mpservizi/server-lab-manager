@@ -23,8 +23,10 @@ async function handleRequest(sender, payload) {
   }
   //Chiamo il handler per eseguire la richiesta
   let result = await handler(sender, payload);
+  //Come risposta emetto lo stesso evento usato dal client
+  let canale_risposta = payload.action;
   //Restitusico la risposta al client
-  MyWebsocket.sendResponse(sender, result);
+  MyWebsocket.sendResponse(sender, result, canale_risposta);
 }
 
 export default {

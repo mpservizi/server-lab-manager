@@ -46,9 +46,11 @@ function handleMsgClient(sender, json) {
  * Wrapper per mandare la risposta al client
  * @param {*} target
  * @param {*} payload
+ * @param {string} canale
  */
-function sendResponse(target, payload) {
-  target.emit(CANALE_SCAMBIO, creaRisposta(payload));
+function sendResponse(target, payload, canale) {
+  let evento = canale || CANALE_SCAMBIO;
+  target.emit(evento, creaRisposta(payload));
 }
 
 /**
