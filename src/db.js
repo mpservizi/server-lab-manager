@@ -13,6 +13,7 @@ async function selectQuery(sql) {
   let response = await eseguiSelectQuery(payload);
   return response;
 }
+
 async function updateQuery(sql) {
   let payload = {
     sql: sql,
@@ -21,6 +22,7 @@ async function updateQuery(sql) {
   let response = await eseguiActionQuery(payload);
   return response;
 }
+
 async function deleteQuery(sql) {
   let payload = {
     sql: sql,
@@ -29,6 +31,7 @@ async function deleteQuery(sql) {
   let response = await eseguiActionQuery(payload);
   return response;
 }
+
 async function insertQuery(sql) {
   let payload = {
     sql: sql,
@@ -38,12 +41,14 @@ async function insertQuery(sql) {
   return response;
 }
 
+//Esegue query di selezione
 async function eseguiSelectQuery(payload) {
   let db = Storage.getDb();
   let response = await db.query(payload);
   return response;
 }
 
+//Esegue query di modifica
 async function eseguiActionQuery(payload) {
   let db = Storage.getDb();
   let response = await db.execute(payload);
