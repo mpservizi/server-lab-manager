@@ -3,10 +3,13 @@ import { join } from 'path';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import { logger } from './logger.js';
+import { createServer } from 'http';
 
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+import MyWebsocket from './websocket.js';
 
 //Inizializza app express
 function initServer() {
@@ -62,15 +65,22 @@ async function startServer(app, port) {
       err: null,
     };
     try {
-      app
-        .listen(port, () => {
-          result.data = `http://localhost:${port}`;
-          resolve(result);
-        })
-        .on('error', (err) => {
-          result.err = err;
-          resolve(result);
-        });
+      const httpServer = createServer(app);
+      MyWebsocket.initWebsocket(httpServer);
+      app.set('port', port);
+      httpServer.listen(port, function () {
+        result.data = `http://localhost:${port}`;
+        resolve(result);
+      });
+      // app
+      //   .listen(port, () => {
+      //     result.data = `http://localhost:${port}`;
+      //     resolve(result);
+      //   })
+      //   .on('error', (err) => {
+      //     result.err = err;
+      //     resolve(result);
+      //   });
     } catch (error) {
       reject(error);
     }
