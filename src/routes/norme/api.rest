@@ -9,10 +9,20 @@ GET {{host}}/5 HTTP/1.1
 POST {{host}} HTTP/1.1
 content-type: application/json
 
-{
-    "name": "sample",
-    "time": "Wed, 21 Oct 2015 18:27:50 GMT"
-}
+  {
+    "parent_id": "",
+    "type": "Standard",
+    "status": "In Application",
+    "entry_date": "01/01/2014",
+    "exit_date": "01/01/2025",
+    "country": "International std",
+    "product_type": "Ball presure",
+    "title": "IEC 60695-10-2:2014-02 Ed. 3.0",
+    "folder": 5,
+    "language": "EN/FR",
+    "format": "",
+    "comment": ""
+  }
 ###
 
 PATCH  {{host}} HTTP/1.1

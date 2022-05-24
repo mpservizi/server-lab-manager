@@ -15,16 +15,19 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('', async (req, res) => {
-  let result = { new_id: 1, payload: req.body };
+  let payload = req.body;
+  let result = await Service.addNorma(payload);
   res.send(result);
 });
 
 router.patch('', async (req, res) => {
-  let result = { update: 1, payload: req.body };
+  let payload = req.body;
+  let result = await Service.editNorma(payload);
   res.send(result);
 });
 router.delete('', async (req, res) => {
-  let result = { delete: 1, payload: req.body };
+  let payload = req.body;
+  let result = await Service.deleteNorma(payload);
   res.send(result);
 });
 

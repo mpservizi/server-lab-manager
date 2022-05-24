@@ -57,6 +57,7 @@ async function eseguiSelectQuery(payload) {
 async function eseguiActionQuery(payload) {
   try {
     let db = Storage.getDb();
+    payload.scalar = 'SELECT @@Identity AS id';
     //Db crea il wrapper per errore con try catch
     let response = await db.execute(payload);
     return response;
