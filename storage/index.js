@@ -4,7 +4,7 @@
 
 import SqlDb from './sql_db.js';
 
-let database;
+let database = undefined;
 /**
  * Espone il database da usare nel app
  * @param config

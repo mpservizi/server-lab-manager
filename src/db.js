@@ -43,16 +43,35 @@ async function insertQuery(sql) {
 
 //Esegue query di selezione
 async function eseguiSelectQuery(payload) {
-  let db = Storage.getDb();
-  let response = await db.query(payload);
-  return response;
+  try {
+    let db = Storage.getDb();
+    //Db crea il wrapper per errore con try catch
+    let response = await db.query(payload);
+    return response;
+  } catch (error) {
+    return creaRispostaErrore(error);
+  }
 }
 
 //Esegue query di modifica
 async function eseguiActionQuery(payload) {
-  let db = Storage.getDb();
-  let response = await db.execute(payload);
-  return response;
+  try {
+    let db = Storage.getDb();
+    //Db crea il wrapper per errore con try catch
+    let response = await db.execute(payload);
+    return response;
+  } catch (error) {
+    return creaRispostaErrore(error);
+  }
+}
+
+function creaRispostaErrore(error) {
+  return {
+    err: {
+      msg: 'Errore nel ricavare istanza del db',
+      error: error,
+    },
+  };
 }
 
 export const DbAdapter = {
