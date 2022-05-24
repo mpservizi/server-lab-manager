@@ -1,4 +1,4 @@
-import model from './norme.model.js';
+import model from './model.js';
 async function getAllNorme() {
   let result = model.listaNorme();
   return Promise.resolve(result);
