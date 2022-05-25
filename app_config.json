@@ -2,7 +2,7 @@
   "PORT": 3000,
   "APP_NAME": "Api server",
   "DB_NAME": "mydb",
-  "DB_PATH": "storage/database/mydb.accdb",
+  "DB_PATH": "storage/database/db_norme.accdb",
   "RELATIVE_PATH": 1,
   "FAKE": 0,
   "DB_DEBUG": 1

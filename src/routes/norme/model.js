@@ -9,10 +9,15 @@ async function getAll() {
   let result = await DbAdapter.selectQuery(sql);
   return result;
 }
+async function getById(id) {
+  let sql = `SELECT * FROM ${TABELLA} WHERE id=${id}`;
+  let result = await DbAdapter.selectQuery(sql);
+  return result;
+}
 
 async function addNew(payload) {
   const sqlInsert = sqlQuery.insert();
-  let sql = sqlInsert.into('nomi').set(payload).build();
+  let sql = sqlInsert.into(TABELLA).set(payload).build();
   let result = await DbAdapter.insertQuery(sql);
   if (result.data) {
     payload.id = result.data[0].id;
@@ -23,7 +28,12 @@ async function addNew(payload) {
 
 async function editOne(payload) {
   const sqlUpdate = sqlQuery.update();
-  let sql = sqlUpdate.into('nomi').set(payload).build();
+  //Copio id del record da aggiornare
+  let id = payload.id;
+  //Elimino dal payload per creare la query
+  delete payload.id;
+  let sql = sqlUpdate.into(TABELLA).set(payload).where({ id: id }).build();
+
   let result = await DbAdapter.updateQuery(sql);
   if (result.data) {
     payload.id = result.data[0].id;
@@ -41,6 +51,7 @@ async function deleteOne(payload) {
 
 export default {
   getAll,
+  getById,
   addNew,
   editOne,
   deleteOne,
