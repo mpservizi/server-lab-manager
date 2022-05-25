@@ -2,8 +2,10 @@ import { DbAdapter } from '../../db.js';
 import sql from 'sql-query';
 const sqlQuery = sql.Query();
 
+const TABELLA = 'norme';
+
 async function getAll() {
-  let sql = `SELECT * FROM norme`;
+  let sql = `SELECT * FROM ${TABELLA}`;
   let result = await DbAdapter.selectQuery(sql);
   return result;
 }
