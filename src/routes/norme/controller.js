@@ -13,7 +13,7 @@ router.get('/:id', async (req, res) => {
   res.send(result);
 });
 
-//In corso
+//Funziona
 router.post('', async (req, res) => {
   let payload = req.body;
   let result = await Service.addNorma(payload);
@@ -27,7 +27,7 @@ router.patch('', async (req, res) => {
   res.send(result);
 });
 
-//TBD
+//Funziona
 router.delete('', async (req, res) => {
   let payload = req.body;
   let result = await Service.deleteNorma(payload);

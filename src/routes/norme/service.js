@@ -11,6 +11,9 @@ async function findById(payload) {
 
 async function addNorma(payload) {
   checkDatePayload(payload);
+  if (payload.parent_id == '' || payload.parent_id == undefined) {
+    payload.parent_id = null;
+  }
   let result = await model.addNew(payload);
   return Promise.resolve(result);
 }
@@ -20,10 +23,8 @@ async function editNorma(payload) {
   return Promise.resolve(result);
 }
 async function deleteNorma(payload) {
-  //TO do formattare i campi del payload in base ai campi della tabella
-  payload = {};
-  payload.id = 52;
-  let result = await model.deleteOne(payload);
+  let id_norma = parseInt(payload.id);
+  let result = await model.deleteOne(id_norma);
   return Promise.resolve(result);
 }
 

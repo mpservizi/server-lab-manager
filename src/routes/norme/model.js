@@ -36,16 +36,28 @@ async function editOne(payload) {
 
   let result = await DbAdapter.updateQuery(sql);
   if (result.data) {
-    payload.id = result.data[0].id;
-    return payload;
+    //ricavo oggetto completo con valori aggiornati
+    let risposta = await getById(id);
+    return risposta;
   }
   return result;
 }
 
-async function deleteOne(payload) {
-  let sql = `DELETE from nomi WHERE ID=${payload.id}`;
+async function deleteOne(id) {
+  let sql = `DELETE from ${TABELLA} WHERE ID=${id}`;
   let result = await DbAdapter.deleteQuery(sql);
-  console.log(result);
+  //Risposta DB
+  //{
+  //   "data": [
+  //     {
+  //       "id": 0
+  //     }
+  //   ]
+  // }
+  if (result.data) {
+    //Imposto id del ogetto eliminato nella risposta
+    result.data[0].id = id;
+  }
   return result;
 }
 
