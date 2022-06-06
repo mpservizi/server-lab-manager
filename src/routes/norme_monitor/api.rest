@@ -1,31 +1,48 @@
 @host=http://localhost:3000/api/norme_monitor
 
+#Get all
 GET {{host}} HTTP/1.1
 ###
 
-GET {{host}}/5 HTTP/1.1
+#Get by id
+GET {{host}}/177 HTTP/1.1
 ###
 
+#add new
 POST {{host}} HTTP/1.1
 content-type: application/json
 
-{
-    "name": "sample",
-    "time": "Wed, 21 Oct 2015 18:27:50 GMT"
-}
+  {
+    "parent_id": null,
+    "type": "Standard",
+    "status": "In Application",
+    "entry_date": "01/01/2014",
+    "exit_date": "01/01/2025",
+    "country": "International std",
+    "product_type": "Ball presure",
+    "title": "IEC 60695-10-2:2014-02 Ed. 3.0",
+    "folder": 5,
+    "language": "EN/FR",
+    "format": "",
+    "comment": ""
+  }
 ###
 
+#Update
 PATCH  {{host}} HTTP/1.1
 content-type: application/json
 
 {
-    "name": "update"
+    "id": 177,
+    "title": "XXX Update 2"
 }
 ###
+
+#Delete
 DELETE   {{host}} HTTP/1.1
 content-type: application/json
 
 {
-    "name": "delete"
+    "id": 177
 }
 ###
